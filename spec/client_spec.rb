@@ -1,6 +1,6 @@
-require('rspec')
-require('pg')
-require('client')
+#require('rspec')
+#require('pg')
+#require('client')
 require("spec_helper")
 
 DB = PG.connect({:dbname => 'hair_salon'})
@@ -36,25 +36,25 @@ describe(Client) do
 
     describe("#save") do
       it("adds a client to the database") do
-        client = Client.new({:description => "Bob Billy", :id => nil})
-        client.save()
+        test_client = Client.new({:name => "Bob Billy", :stylist_id => 1})
+        test_client.save()
         expect(Client.all()).to(eq([test_client]))
       end
     end
 
   describe("#==") do
-    it("is the same client if it has the same description") do
-      client1 = Client.new({:description => "Bob Billy", :id => nil})
-      client2 = Client.new({:description => "Bob Billy", :id => nil})
+    it("is the same client if it has the same name") do
+      client1 = Client.new({:name => "Bob Billy", :stylist_id => 1})
+      client2 = Client.new({:name => "Bob Billy", :stylist_id => 1})
       expect(client1).to(eq(client2))
     end
   end
 
   describe(".find") do
-  it("returns a list by its ID") do
-    test_client = Client.new({:name => "Bob Billy", :id => nil})
+  it("returns a client by their ID") do
+    test_client = Client.new({:name => "Bob Billy", :id => 1})
     test_client.save()
-    test_client2 = Client.new({:name => 'Jon Jimmy', :id => nil})
+    test_client2 = Client.new({:name => 'Jon Jimmy', :id => 2})
     test_client2.save()
     expect(Client.find(test_client2.id())).to(eq(test_client2))
   end
